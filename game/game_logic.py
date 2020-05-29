@@ -21,13 +21,13 @@ class GameLogic:
 
         movement_speed = 30
 
-        if pygame.key.get_pressed()[pygame.K_UP]:
+        if pygame.key.get_pressed()[pygame.K_w]:
                 camera.move_camera(0, -movement_speed * dt)
-        if pygame.key.get_pressed()[pygame.K_LEFT]:
+        if pygame.key.get_pressed()[pygame.K_a]:
                 camera.move_camera(-movement_speed * dt, 0)
-        if pygame.key.get_pressed()[pygame.K_DOWN]:
+        if pygame.key.get_pressed()[pygame.K_s]:
                 camera.move_camera(0, movement_speed * dt)
-        if pygame.key.get_pressed()[pygame.K_RIGHT]:
+        if pygame.key.get_pressed()[pygame.K_d]:
                 camera.move_camera(movement_speed * dt, 0)
 
     def update(self, dt):
