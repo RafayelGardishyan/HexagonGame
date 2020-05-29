@@ -25,3 +25,9 @@ class Drawable:
     def move(self, x_offset, y_offset):
         self.x += x_offset
         self.y += y_offset
+
+    def click(self):
+        self.color = (255, 255, 255)
+
+    def hovered(self, mousepos):
+        pass

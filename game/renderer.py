@@ -1,8 +1,10 @@
 import pygame
 
+from game.game_logic import GameLogic
+
 
 class Renderer:
-    def __init__(self, window_name, fps=60, size=(800, 600), favicon=None, game_logic=None):
+    def __init__(self, window_name, fps=60, size=(800, 600), favicon=None, game_logic: GameLogic=None):
         self.running = True
         self.size = self.width, self.height = size
         self.game_logic = game_logic
@@ -18,15 +20,11 @@ class Renderer:
 
         self._screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
 
-    def on_event(self, event):
-        if event.type == pygame.QUIT:
-            self.running = False
-
     def update(self):
         dt = self.clock.tick(self.fps) / 1000.0
 
         for event in pygame.event.get():
-            self.on_event(event)
+            self.running = self.game_logic.process_input(event)
 
         if self.game_logic is not None:
             self.game_logic.update(dt)

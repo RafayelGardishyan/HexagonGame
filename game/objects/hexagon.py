@@ -11,7 +11,7 @@ class Hexagon(Drawable):
         self.rad = rad
 
     def draw(self, screen):
-        pygame.draw.polygon(screen, (randint(0, 255), randint(0, 255), randint(0, 255)), [
+        pygame.draw.polygon(screen, self.color, [
             (self.x + self.rad *
              (cos(2 * pi / 6 * i + self.rotation)),
              self.y + self.rad *
@@ -29,3 +29,9 @@ class Hexagon(Drawable):
 
     def update(self, dt):
         pass
+
+    def hovered(self, mousepos):
+        if (self.x - self.rad) < mousepos[0] < (self.x + self.rad):
+            if (self.y - self.rad) < mousepos[1] < (self.y + self.rad):
+                return True
+        return False
