@@ -1,9 +1,13 @@
 import pygame
 
+from game.camera import Camera
 from game.game_logic import GameLogic
 
 
 class Renderer:
+
+    camera = Camera()
+
     def __init__(self, window_name, fps=60, size=(800, 600), favicon=None, game_logic: GameLogic=None):
         self.running = True
         self.size = self.width, self.height = size
@@ -24,7 +28,9 @@ class Renderer:
         dt = self.clock.tick(self.fps) / 1000.0
 
         for event in pygame.event.get():
-            self.running = self.game_logic.process_input(event)
+            self.running = self.game_logic.process_input(event, dt)
+
+        self.game_logic.process_movement(pygame.key.get_pressed(), self.camera, dt)
 
         if self.game_logic is not None:
             self.game_logic.update(dt)
@@ -39,7 +45,7 @@ class Renderer:
 
     def draw(self):
         self._screen.fill((0, 0, 0))
-        for m_object in self.game_logic.objects:
-            m_object.draw(self._screen)
+        for tile in self.game_logic.tiles:
+            tile.draw(self._screen)
 
 

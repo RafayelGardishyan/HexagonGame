@@ -1,9 +1,13 @@
+from cmath import pi
+
+
 class Drawable:
 
-    def __init__(self, x, y, color=(255, 0, 0)):
+    def __init__(self, x, y, color=(0, 255, 0), sec_color=(0, 0, 0)):
         self.x = x
         self.y = y
         self.color = color
+        self.secondary_color = sec_color
         self.texture = None
         self.rotation = 0
 
@@ -27,7 +31,7 @@ class Drawable:
         self.y += y_offset
 
     def click(self):
-        self.color = (255, 255, 255)
+        pass
 
-    def hovered(self, mousepos):
+    def on_me(self, mousepos):
         pass
