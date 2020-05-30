@@ -11,6 +11,7 @@ class Hexagon(Drawable):
     types = {
         "WATER": (0, 0, 255),
         "GRASSLAND": (0, 255, 0),
+        "DIED_GRASSLAND": (100, 100, 0),
         "SAND": (255, 255, 100),
         "DIRT": (50, 50, 0)
     }
@@ -54,7 +55,8 @@ class Hexagon(Drawable):
                 y -= 4
 
             for i in range(h):
-                logic.tiles.append(Hexagon(x, y + i * (sqrt(3) * rad), rad))
+                if randint(0, 100) < 80:
+                    logic.tiles.append(Hexagon(x, y + i * (sqrt(3) * rad), rad))
 
     def update(self, dt):
         self.lifetime += 1 * dt
@@ -125,18 +127,22 @@ class Hexagon(Drawable):
         if grass_count > 5:
             self.type = "GRASSLAND"
             self.handle_type_change()
-            self.lifetime = 0
             for entity in self.entities:
                 if entity.obj_type is "GRASS":
                     entity.grown()
 
     def handle_type_change(self):
         self.color = self.types[self.type]
-
-        if self.type == "WATER":
+        self.lifetime = 0
+        if self.type in ["WATER", "DIED_GRASSLAND"]:
             self.entities = []
 
     def grassland_update(self):
+
+        if self.lifetime > randint(15, 30):
+            self.type = "DIED_GRASSLAND"
+            self.handle_type_change()
+
         i = 0
         while i < len(self.entities):
             try:

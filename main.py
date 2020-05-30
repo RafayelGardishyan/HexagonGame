@@ -10,7 +10,7 @@ if __name__ == "__main__":
     logic = GameLogic()
     game = Renderer("Nature Zen 2", size=(800, 600), game_logic=logic)
     # Hexagon.create_grid(22, 15, 50, logic)
-    Hexagon.create_grid(5, 5, 50, logic)
+    Hexagon.create_grid(22, 10, 50, logic)
     while game.running:
         game.update()
     game.cleanup()
