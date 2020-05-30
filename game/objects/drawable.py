@@ -10,6 +10,7 @@ class Drawable:
         self.secondary_color = sec_color
         self.texture = None
         self.rotation = 0
+        self.obj_type = None
 
     def update(self, dt):
         pass

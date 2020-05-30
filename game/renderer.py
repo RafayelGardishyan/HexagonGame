@@ -7,6 +7,7 @@ from game.game_logic import GameLogic
 class Renderer:
 
     camera = Camera()
+    asset_path = "."
 
     def __init__(self, window_name, fps=60, size=(800, 600), favicon=None, game_logic: GameLogic=None):
         self.running = True
@@ -24,6 +25,11 @@ class Renderer:
 
         self._screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
 
+    @staticmethod
+    def set_asset_path(path):
+        Renderer.asset_path = path
+        print("Asset directory: " + Renderer.asset_path)
+
     def update(self):
         dt = self.clock.tick(self.fps) / 1000.0
 
@@ -37,15 +43,17 @@ class Renderer:
             
         self.draw()
 
-        pygame.display.flip()
+        pygame.display.update()
 
     @staticmethod
     def cleanup():
         pygame.quit()
 
     def draw(self):
-        self._screen.fill((0, 0, 0))
+        self._screen.fill((255, 255, 255))
         for tile in self.game_logic.tiles:
             tile.draw(self._screen)
+            for entity in tile.entities:
+                entity.draw(self._screen)
 
 
